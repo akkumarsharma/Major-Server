@@ -105,7 +105,8 @@ namespace ProjectMgmtSGServer.BusinessLayer
         {
             try
             {
-                ProjectResourceAssignmentBLObj.Delete(id);
+                var Id = ProjectResourceAssignmentBLObj.GetAll().Find(a => a.ResourceAssignedId == id).Id;
+                ProjectResourceAssignmentBLObj.Delete(Id);
                 return true;
             }
             catch (Exception ex)

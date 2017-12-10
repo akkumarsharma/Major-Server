@@ -59,11 +59,11 @@ namespace ProjectMgmtSGServer.DAL
             }
         }
 
-        public void Delete(string id)
+        public void Delete(ObjectId id)
         {
             try
             {
-                _collection.DeleteOne(Builders<T>.Filter.Eq("_id", ObjectId.Parse(id)));
+                _collection.DeleteOne(Builders<T>.Filter.Eq("_id",id));
             }
 
             catch (Exception ex)

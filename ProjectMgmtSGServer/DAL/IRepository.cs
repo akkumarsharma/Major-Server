@@ -11,6 +11,6 @@ namespace ProjectMgmtSGServer.DAL
         T Get(string id);
         void Post(T model);
         void Update(UpdateDefinition<T> combinedUpdateDefinition, ObjectId id);
-        void Delete(string id);
+        void Delete(ObjectId id);
     }
 }

@@ -35,12 +35,15 @@ namespace ProjectMgmtSGServer.Controllers
         }
 
         [Route("api/UpdateSubActivity")]
+        [HttpPut]
         public HttpResponseMessage Update([FromBody]SubActivityDetail value)
         {
             return ToJson(Instantiator.Instance.subActivityBLInstance.Update(value));
         }
 
+        
         [Route("api/DeleteSubActivity")]
+        [HttpDelete]
         public HttpResponseMessage Delete(string id)
         {
             return ToJson(Instantiator.Instance.subActivityBLInstance.Delete(id));

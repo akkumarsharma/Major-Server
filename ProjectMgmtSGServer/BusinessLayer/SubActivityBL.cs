@@ -30,7 +30,7 @@ namespace ProjectMgmtSGServer.BusinessLayer
             }
         }
 
-        public bool Post([FromBody]SubActivityDetail value)
+        public string Post([FromBody]SubActivityDetail value)
         {
             try
             {
@@ -42,12 +42,12 @@ namespace ProjectMgmtSGServer.BusinessLayer
                 }
                 value.SubActivityId = Convert.ToString(newSubActivityId);
                 SubActivityBLObj.Post(value);
-                return true;
+                return value.SubActivityId;
             }
 
             catch (Exception ex)
             {
-                return false;
+                return string.Empty;
             }
         }
 
@@ -62,7 +62,8 @@ namespace ProjectMgmtSGServer.BusinessLayer
                 var updatedSubActivityEndDate = Builders<SubActivityDetail>.Update.Set(r => r.SubActivityEndDate, value.SubActivityEndDate);
                 var updatedSelectedMainActivity = Builders<SubActivityDetail>.Update.Set(r => r.SelectedMainActivity, value.SelectedMainActivity);
                 var combinedUpdateDefinition = Builders<SubActivityDetail>.Update.Combine(updatedSubActivityId, updatedSubActivityName, updatedSubActivityDesc, updatedSubActivityStartDate, updatedSubActivityEndDate, updatedSelectedMainActivity);
-                SubActivityBLObj.Update(combinedUpdateDefinition,value.Id);
+                var Id= SubActivityBLObj.GetAll().Find(a=>a.SubActivityId==value.SubActivityId).Id;
+                SubActivityBLObj.Update(combinedUpdateDefinition, Id);
                 return true;
             }
             catch (Exception ex) {
@@ -102,7 +103,8 @@ namespace ProjectMgmtSGServer.BusinessLayer
         {
             try
             {
-                SubActivityBLObj.Delete(id);
+                var Id = SubActivityBLObj.GetAll().Find(a => a.SubActivityId == id).Id;
+                SubActivityBLObj.Delete(Id);
                 return true;
             }
             catch (Exception ex)

@@ -101,7 +101,8 @@ namespace ProjectMgmtSGServer.BusinessLayer
         {
             try
             {
-                ActivityBLObj.Delete(id);
+                var Id = ActivityBLObj.GetAll().Find(a => a.ActivityId == id).Id;
+                ActivityBLObj.Delete(Id);
                 return true;
             }
             catch (Exception ex)
